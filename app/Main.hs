@@ -32,8 +32,8 @@ rShape = fromVertices $ map p2 [
     , (1, 0)
     ]
 
-example :: Diagram B
-example = straightBranch `atop` curvedPart
+lambdaChar :: Diagram B
+lambdaChar = straightBranch `atop` curvedPart
   where
   straightBranch = fromVertices $ [
       p2 (0, 0)
@@ -45,16 +45,24 @@ example = straightBranch `atop` curvedPart
 
 composed :: Diagram B
 composed = hsep 0.2 $ map alignB [
-    sShape # lc blue
-  , reflectY $ mShape # lc red
-  , example # lc purple
-  , rShape # lc blue
-  , mShape # lc red
+    sShape # lc blueColor
+  , reflectY $ mShape # lc fuschiaColor
+  , lambdaChar # lineCap LineCapButt # lw 10 # lc purpleColor
+  , rShape # lc blueColor
+  , mShape # lc fuschiaColor
   ]
+  where
+    -- Vaporwave colors
+    -- https://www.color-hex.com/color-palette/57915
+    fuschiaColor = sRGB24read "#ff00c1"
+    purpleColor = sRGB24read "#9600ff"
+    violetColor = sRGB24read "#4900ff"
+    blueColor = sRGB24read "#00b8ff"
+    cyanColor = sRGB24read "#00fff9"
 
 main :: IO ()
 main = mainWith $ composed
     # lineCap LineCapSquare . lineJoin LineJoinBevel
-    # lw 3
+    # lw 5
     # frame 0.2
   
