@@ -14,6 +14,8 @@ violetColor = sRGB24read "#4900ff"
 blueColor = sRGB24read "#00b8ff"
 cyanColor = sRGB24read "#00fff9"
 
+absLineWeight = 40
+
 sShape :: Diagram B
 sShape = fromVertices $ map p2 [
       (0, 0)
@@ -60,7 +62,7 @@ composedLetters :: Diagram B
 composedLetters = hsep 0.5 $ map alignB [
     sShape # lc blueColor
   , reflectY $ mShape # lc fuschiaColor
-  , lambdaChar # lineCap LineCapButt # lw 15 # lc purpleColor
+  , lambdaChar # lineCap LineCapButt # lw absLineWeight # lc purpleColor
   , rShape # lc blueColor
   , mShape # lc fuschiaColor
   ]
@@ -79,7 +81,7 @@ fullDiagram = mconcat [
   where
   strokedLetters = composedLetters
     # lineCap LineCapSquare . lineJoin LineJoinBevel
-    # lw 15
+    # lw absLineWeight
     # frame 0.2
 
 main :: IO ()
